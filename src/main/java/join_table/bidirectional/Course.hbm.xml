@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="join_table.bidirectional">
+    <class name="Course" table="COURSES">
+        <meta attribute="class-description">
+            One-to-many mapping. Join table strategy.
+            It was used many-to-many mapping with 'unique' constraint attribute.
+        </meta>
+        <id name="courseId" column="CourseId" type="int" access="field"/>
+        <property name="name" column="Name" type="string"/>
+        <property name="totalCredits" column="TotalCredits" type="int"/>
+        <set name="students" table="COURSE_STUDENT" cascade="save-update, delete-orphan">
+        	<key column="CourseId"/>
+        	<many-to-many column="StudentId" class="Student" unique="true"/>
+        </set>
+    </class>
+</hibernate-mapping>
